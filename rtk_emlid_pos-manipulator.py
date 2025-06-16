@@ -4,8 +4,8 @@ import pandas as pd
 
 
 # Get files
-file_path_emlid = "data/504/YF2Reachm2_raw_20230504174442-emlid-no.pos"
-file_path_rtk = "data/504/YF2Reachm2_raw_20230504174442-rtk.pos"
+file_path_emlid = "data/528/528rtk.pos"
+file_path_rtk = "data/528/YF2Reachm2_raw_20240528115238_emlid.pos"
 
 
 def find_data_start(file_path):
@@ -231,7 +231,7 @@ def plot_quality(emlid_q, rtk_q):
     x = np.arange(len(quality)) 
     width = 0.35  
 
-    bar_labels = ['Emlid (Without antenna correction)', 'RTK']
+    bar_labels = ['Emlid (With antenna correction)', 'RTK with patch']
     bar_colors = ['tab:red', 'tab:blue']
 
     bars1 = ax.bar(x - width/2, emlid_q, width, label=bar_labels[0], color=bar_colors[0])
@@ -305,11 +305,13 @@ def plot_avg_height():
     with_correction = [8.36,6.82,7.14,6.55,6.72]
     without_correction = [3.49,1.10, 1.58, 0.52, 0.70]
     both_emlid = [6.57, 6.56, 6.54, 6.54, 6.57]
+    # rkn2rtkp = [0,0,0,0,0]
     plt.ylim(0.5,8.5)
     # plot the index for the x-values
     plt.plot(xi, with_correction, marker='o', linestyle='--', color='r', label='Emlid (With antenna correction) vs. RTK') 
     plt.plot(xi, without_correction, marker='o', linestyle='--', color='b', label='Emlid (Without antenna correction) vs. RTK') 
     plt.plot(xi, both_emlid, marker='o', linestyle='--', color='g', label='Emlid (With antenna correction) vs. Emlid (Without antenna correction)') 
+    # plt.plot(xi, rkn2rtkp, marker='o', linestyle='--', color='p', label='rkn2rtkp (With antenna correction) vs. rkn2rtkp (Without antenna correction)') 
     plt.xlabel('Date')
     plt.ylabel('Change in height') 
     plt.xticks(xi, x)
